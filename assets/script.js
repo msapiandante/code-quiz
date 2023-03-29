@@ -5,11 +5,31 @@ var startButton = document.querySelector(".start-button");
 var isWin = false;
 var timer;
 var timerCount;
-
-// The init function is called when the page loads 
-function init() {
-  getWins();
-}
+//quiz questions and answers 
+var questions = [
+  {
+      title: "How many domestic cats are there in the world?",
+      choices: ["5 million","50 million","250 million","500 million"],
+      answer: "500 million",
+  },
+  {
+      title: "How many teeth does a cat have? ",
+      choices: ["20", "30", "40", "50"],
+      answer: "30",
+  },
+  {
+      title: "What was Grumpy Cat's real name?",
+      choices: ["Tardar Sauce", "Salsa", "Mayonaise", "Worcestershire Sauce"],
+      answer: "Tardar Sauce",
+  },
+  {
+      title: "How long have cats been domesticated?",
+      choices: ["100 years", "500 years", "1,000 years", "1,500 years"],
+      answer: "1,000 years"
+  },
+]
+// Attach event listener to start button to call startGame function on click
+startButton.addEventListener("click", startGame);
 
 // The startGame function is called when the start button is clicked
 function startGame() {
@@ -17,32 +37,10 @@ function startGame() {
   timerCount = 60;
   // Prevents start button from being clicked when round is in progress
   startButton.disabled = true;
-  renderBlanks()
+  startQuestions()
   startTimer()
 }
-//quiz questions and answers 
-var questions = [
-    {
-        title: "How many domestic cats are there in the world?",
-        choices: ["5 million","50 million","250 million","500 million"],
-        answer: "500 million",
-    },
-    {
-        title: "How many teeth does a cat have? ",
-        choices: ["20", "30", "40", "50"],
-        answer: "30",
-    },
-    {
-        title: "What was Grumpy Cat's real name?",
-        choices: ["Tardar Sauce", "Salsa", "Mayonaise", "Worcestershire Sauce"],
-        answer: "Tardar Sauce",
-    },
-    {
-        title: "How long have cats been domesticated?",
-        choices: ["100 years", "500 years", "1,000 years", "1,500 years"],
-        answer: "1,000 years"
-    },
-]
+
 // The winGame function is called when the win condition is met
 function winGame() {
   wordBlank.textContent = "YOU WON!!!🏆 ";
@@ -58,6 +56,8 @@ function loseGame() {
   startButton.disabled = false;
   setLosses()
 }
+
+// enter function to reference questions and answers 
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
@@ -82,23 +82,15 @@ function startTimer() {
   }, 1000);
 }
 
-
-// These functions are used by init
-function getWins() {
-  // Get stored value from client storage, if it exists
-  var storedWins = localStorage.getItem("winCount");
-  // If stored value doesn't exist, set counter to 0
-  if (storedWins === null) {
-    winCounter = 0;
+function scoreBoard() {
+  var x = document.getElementById("scoreboard");
+  if (x.style.display === "none") {
+    x.style.display = "block";
   } else {
-    // If a value is retrieved from client storage set the winCounter to that value
-    winCounter = storedWins;
+    x.style.display = "none";
   }
-  //Render win count to page
-  win.textContent = winCounter;
 }
-
-
+var storedWins = localStorage.getItem("keepingscore");
 
 // Attach event listener to document to listen for key event
 document.addEventListener("keydown", function(event) {
@@ -107,59 +99,3 @@ document.addEventListener("keydown", function(event) {
     return;
   }
 });
-
-// Attach event listener to start button to call startGame function on click
-startButton.addEventListener("click", startGame);
-
-// Calls init() so that it fires when page opened
-init();
-
-// Bonus: Add reset button
-var resetButton = document.querySelector(".reset-button");
-
-function resetGame() {
-  // Resets win and loss counts
-  winCounter = 0;
-  loseCounter = 0;
-  // Renders win and loss counts and sets them into client storage
-  setWins()
-  setLosses()
-}
-// Attaches event listener to button
-resetButton.addEventListener("click", resetGame);
-
-/*function buildQuiz(){
-  // variable to store the HTML output
-  const output = [];
-
-  // for each question...
-  myQuestions.forEach(
-    (currentQuestion, questionNumber) => {
-
-      // variable to store the list of possible answers
-      const answers = [];
-
-      // and for each available answer...
-      for(letter in currentQuestion.answers){
-
-        // ...add an HTML radio button
-        answers.push(
-          `<label>
-            <input type="radio" name="question${questionNumber}" value="${letter}">
-            ${letter} :
-            ${currentQuestion.answers[letter]}
-          </label>`
-        );
-      }
-
-      // add this question and its answers to the output
-      output.push(
-        `<div class="question"> ${currentQuestion.question} </div>
-        <div class="answers"> ${answers.join('')} </div>`
-      );
-    }
-  );
-
-  // finally combine our output list into one string of HTML and put it on the page
-  quizContainer.innerHTML = output.join('');
-}*/

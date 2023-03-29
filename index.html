@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Cat Facts</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="./assets/style.css" />
-  </head>
-  <body>
-    <header>
-      <div class= "large-font">Cat Facts</div>
-      <button class="start-button">Start</button>
-    </header>
 
-    <main>
-      <section>
-          </section>
+<head>
+  <title>Cat Facts</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="./assets/style.css" />
+</head>
 
-      <section>
-        <div class="card results">
-          <div class = "scoreboard">
-          <div>
-          <h2>Scoreboard</h2>
-        </div>
-          <button class="reset-button">Clear Scores</button>
+<body>
+  <header>
+    <div class="large-font">Cat Facts</div>
+    <button class="start-button">Start</button>
+    <div class="card timer">
+      <div class="timer-text">
+        <div class="large-font timer-count">10</div>
+        <h3>seconds remaining</h3>
       </div>
-          <div class= "card timer">
-            <div class = "timer-text">
-            <div class="large-font timer-count">10</div>
-            <h3>seconds remaining</h3>
-          </div>
-        
-          </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="questions">Questions</div>
+    </section>
+
+    <section>
+      <button onclick="scoreBoard()">Scoreboard</button>
+        <div class="scoreboard">
+          <button class="reset-button">Clear Scores</button>
         </div>
-      </section>
-    </main>
-    <script src="assets/script.js"></script>
-  </body>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/script.js"></script>
+</body>
+
 </html>
