@@ -90,7 +90,7 @@ function scoreBoard() {
     x.style.display = "none";
   }
 }
-var storedWins = localStorage.getItem("keepingscore");
+//var storedWins = localStorage.getItem("keepingscore");
 
 // Attach event listener to document to listen for key event
 document.addEventListener("keydown", function(event) {
@@ -99,3 +99,4 @@ document.addEventListener("keydown", function(event) {
     return;
   }
 });
+(startTimer(startGame));
