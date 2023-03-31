@@ -2,6 +2,8 @@ var win = document.querySelector(".win");
 var lose = document.querySelector(".lose");
 var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
+var questionSections = document.querySelector(".questions")
+var questionIndex = 0
 var isWin = false;
 var timer;
 var timerCount;
@@ -61,24 +63,42 @@ function startGame() {
   isWin = false;
   timerCount = 60;
   // Prevents start button from being clicked when round is in progress
-  startButton.disabled = true;
+  startButton.style.display = "none";
   startQuestions()
   startTimer()
 }
 //Here's function to render the question and the choices everytime we click the buttons. 
 function startQuestions() {
+questionSections.innerHTML = ""
+  let show = document.createElement('h1');
+  var ulChoices = document.createElement("ul");
+  var button1 = document.createElement("button")
+  var button2 = document.createElement("button")
+  var button3 = document.createElement("button")
+  var button4 = document.createElement("button")
 
-  let show = document.getElementById('question');
   let q = questions[questionIndex];
-  
+  button1.innerHTML = q.choices.a;
+  button2.innerHTML = q.choices.b;
+  button3.innerHTML = q.choices.c;
+  button4.innerHTML = q.choices.d;
+
   show.innerHTML = q.question;
+  questionSections.append(show)
+  ulChoices.append(button1)
+  ulChoices.append(button2)
+  ulChoices.append(button3)
+  ulChoices.append(button4)
+  questionSections.append(ulChoices)
   questionIndex++;
   console.log(questionIndex)
   
-  button1.innerHTML = q.answers.a;
-  button2.innerHTML = q.answers.b;
-  button3.innerHTML = q.answers.c;
-  button4.innerHTML = q.answers.d;
+ulChoices.addEventListener("click", function(event){
+  console.log(event.target.textContent)
+  //check right or wrong answer using line 97 and compare to correct answer
+  startQuestions()
+})
+
   }
 
   function endGame() {
