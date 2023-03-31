@@ -5,29 +5,54 @@ var startButton = document.querySelector(".start-button");
 var isWin = false;
 var timer;
 var timerCount;
+
 //quiz questions and answers 
-var questions = [
-  {
-      title: "How many domestic cats are there in the world?",
-      choices: ["5 million","50 million","250 million","500 million"],
-      answer: "500 million",
+let questions = [{
+  question: "How many domestic cats are there in the world?",
+
+  choices: { 
+    a: "5 million",
+    b: "50 million",
+    c: "250 million",
+    d: "500 million",
+    correctAnswer: "d",
   },
-  {
-      title: "How many teeth does a cat have? ",
-      choices: ["20", "30", "40", "50"],
-      answer: "30",
+},
+{
+  question: "How many teeth does a cat have? ",
+
+  choices: { 
+    a: "20",
+    b: "30",
+    c: "40",
+    d: "50",
+    correctAnswer: "b",
   },
-  {
-      title: "What was Grumpy Cat's real name?",
-      choices: ["Tardar Sauce", "Salsa", "Mayonaise", "Worcestershire Sauce"],
-      answer: "Tardar Sauce",
+},
+{
+    question: "What was Grumpy Cat's real name?",
+
+    choices: {
+      a: "Tardar Sauce", 
+      b: "Salsa", 
+      c: "Mayonaise", 
+      d: "Worcestershire Sauce",
+    correctAnswer: "a",
+}
+},
+{
+    question: "How long have cats been domesticated?",
+
+    choices: {
+      a: "100 years", 
+      b: "500 years", 
+      c: "1,000 years", 
+      d: "1,500 years",
+    correctAnswer: "c", 
   },
-  {
-      title: "How long have cats been domesticated?",
-      choices: ["100 years", "500 years", "1,000 years", "1,500 years"],
-      answer: "1,000 years"
-  },
-]
+
+}
+];
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
 
@@ -40,7 +65,30 @@ function startGame() {
   startQuestions()
   startTimer()
 }
+//Here's function to render the question and the choices everytime we click the buttons. 
+function startQuestions() {
 
+  let show = document.getElementById('question');
+  let q = questions[questionIndex];
+  
+  show.innerHTML = q.question;
+  questionIndex++;
+  console.log(questionIndex)
+  
+  button1.innerHTML = q.answers.a;
+  button2.innerHTML = q.answers.b;
+  button3.innerHTML = q.answers.c;
+  button4.innerHTML = q.answers.d;
+  }
+
+  function endGame() {
+    var x = document.getElementById("questions");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
 // The winGame function is called when the win condition is met
 function winGame() {
   wordBlank.textContent = "YOU WON!!!🏆 ";
@@ -90,7 +138,7 @@ function scoreBoard() {
     x.style.display = "none";
   }
 }
-//var storedWins = localStorage.getItem("keepingscore");
+var storedWins = localStorage.getItem("keepingscore");
 
 // Attach event listener to document to listen for key event
 document.addEventListener("keydown", function(event) {
@@ -100,3 +148,6 @@ document.addEventListener("keydown", function(event) {
   }
 });
 (startTimer(startGame));
+scoreBoard(); 
+winGame(endGame());
+loseGame(endGame());
